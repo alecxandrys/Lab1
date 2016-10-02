@@ -58,8 +58,8 @@ public class Main implements Runnable{
                         case 0:{cell.setBackground(Color.GREEN);break;}
                         case 1:{cell.setBackground(Color.YELLOW);break;}
                         case 2:{cell.setBackground(Color.RED);break;}
-                        case 3:{cell.setBackground(Color.BLACK);break;}
-                        case 4:{cell.setBackground(Color.GRAY);break;}
+                        case 4:{cell.setBackground(Color.BLACK);break;}
+                        case 3:{cell.setBackground(Color.GRAY);break;}
                         default:{cell.setBackground(Color.PINK);break;}
                     }
                     if (i%2==0)

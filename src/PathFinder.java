@@ -23,9 +23,19 @@ class PathFinder {
 
     void FindPath(int x1, int y1, int x2, int y2)
     {
-        Cell pointA = map[x1][y1];
-        Cell pointB = map[x2][y2];
+        if (map[x1][y1].ground==4 || map[x2][y2].ground==-1)
+        {
 
+        }
+        else if (map[x2][y2].ground==4 || map[x1][y1].ground==-1)
+        {
+
+        }
+        else {
+            Cell pointA = map[x1][y1];
+            Cell pointB = map[x2][y2];
+
+        }
     }
 
     public void updateMap(Cell map[][])

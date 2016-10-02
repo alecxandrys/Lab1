@@ -7,7 +7,8 @@
  * 0:standard
  * 1:difficult
  * 2:dangerous
- * 3:unreached
+ * 3:ruin
+ * 4:unreached
  */
 class Field {
     Cell map[][];
