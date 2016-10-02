@@ -3,9 +3,7 @@
  */
 class PathFinder {
 
-    Cell pointA;
-    Cell pointB;
-    byte map[][];
+    private Cell map[][];
 
     private class Graph
     {
@@ -18,12 +16,19 @@ class PathFinder {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    PathFinder(Cell a,Cell b,byte map[][])
+    PathFinder(Cell map[][])
     {
+        this.map=map;
+    }
+
+    void FindPath(int x1, int y1, int x2, int y2)
+    {
+        Cell pointA = map[x1][y1];
+        Cell pointB = map[x2][y2];
 
     }
 
-    public void updateMap(byte map[][])
+    public void updateMap(Cell map[][])
     {
         this.map=map;
     }

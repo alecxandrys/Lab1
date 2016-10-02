@@ -10,7 +10,7 @@
  * 3:unreached
  */
 class Field {
-    byte map[][];
+    Cell map[][];
 
     /**
      *
@@ -24,7 +24,7 @@ class Field {
     Field(int xSize, int ySize)
     {
         //set offset for HORIZONTAL line
-        map=new byte[xSize][ySize+xSize/2];
+        map=new Cell[xSize][ySize+xSize/2];
         Creation(xSize,ySize);
     }
 
@@ -36,11 +36,11 @@ class Field {
             {
                 if(Main.OffsetOut(xSize,ySize,i,j))
                 {
-                    map[i][j]=(byte)Math.round(Math.random()*4);
+                    map[i][j]=new Cell(i,j,(byte)Math.round(Math.random()*4));
                 }
                 else
                 {
-                    map[i][j]=-1;
+                    map[i][j]=new Cell(i,j,-1);
                 }
 
             }
@@ -51,13 +51,16 @@ class Field {
 }
 class Cell
 {
-    int x;
-    int y;
+    final int x;
+    final int y;
+    final int ground;
     int cost=-1;
 
-    Cell (int x,int y)
+
+    Cell (int x,int y,int ground)
     {
         this.x=x;
         this.y=y;
+        this.ground=ground;
     }
 }

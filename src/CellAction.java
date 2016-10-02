@@ -15,15 +15,14 @@ class CellAction extends AbstractAction {
         int i=Integer.parseInt(index[0]);
         int j=Integer.parseInt(index[1]);
 
-        if (Main.chosen.empty)
+        if (Main.chosen==null)
         {
-            Main.chosen.empty=false;
-            Main.chosen.x=i;
-            Main.chosen.y=j;
+            Main.chosen=new Chosen(i,j);
         }
         else
         {
-
+            Main.pathFinder.FindPath(Main.chosen.x,Main.chosen.y,i,j);
+            Main.chosen=null;
         }
     }
 }

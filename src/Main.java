@@ -6,7 +6,9 @@ import java.awt.*;
  */
 public class Main implements Runnable{
 
-    static Chosen chosen = new Chosen();
+    static Chosen chosen=null;
+    static PathFinder pathFinder;
+
     static boolean OffsetOut(int xSize, int ySize, int i, int j)
     {
         return ((xSize - i) / 2) <= j && j <= (ySize-1 + (xSize - i) / 2);
@@ -23,6 +25,7 @@ public class Main implements Runnable{
         int xSize = 7;
         int ySize = 7;
         Field field=new Field(xSize, ySize);
+        pathFinder=new PathFinder(field.map);
 
         JFrame jf = new JFrame("Lab1");
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,7 +54,7 @@ public class Main implements Runnable{
                     cell.addActionListener(action);
                     cell.setActionCommand(i+":"+j);
                     p.add(cell);
-                    switch (field.map[i][j]) {
+                    switch (field.map[i][j].ground) {
                         case 0:{cell.setBackground(Color.GREEN);break;}
                         case 1:{cell.setBackground(Color.YELLOW);break;}
                         case 2:{cell.setBackground(Color.RED);break;}
@@ -77,15 +80,15 @@ public class Main implements Runnable{
         text.setEditable(false);
         text.append("\nДистанция смещения (3,5)="+ LOSChecker.Distance(3,5));
     }
+
 }
+
 class Chosen
 {
-    boolean empty=true;
-    int x;
-    int y;
-
-    Chosen()
+    int x,y;
+    Chosen(int x,int y)
     {
-        super();
+        this.x=x;
+        this.y=y;
     }
 }
