@@ -56,6 +56,7 @@ public class Main implements Runnable{
                         case 1:{cell.setBackground(Color.YELLOW);break;}
                         case 2:{cell.setBackground(Color.RED);break;}
                         case 3:{cell.setBackground(Color.BLACK);break;}
+                        case 4:{cell.setBackground(Color.GRAY);break;}
                         default:{cell.setBackground(Color.PINK);break;}
                     }
                     if (i%2==0)
@@ -74,7 +75,7 @@ public class Main implements Runnable{
         p.add(text);
         text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize /2,150);
         text.setEditable(false);
-        text.append("\nДистанция смещения (3,5)="+Finder.Distance(3,5));
+        text.append("\nДистанция смещения (3,5)="+ LOSChecker.Distance(3,5));
     }
 }
 class Chosen

@@ -36,7 +36,7 @@ class Field {
             {
                 if(Main.OffsetOut(xSize,ySize,i,j))
                 {
-                    map[i][j]=(byte)Math.round(Math.random()*3);
+                    map[i][j]=(byte)Math.round(Math.random()*4);
                 }
                 else
                 {
@@ -47,5 +47,17 @@ class Field {
         }
 
 
+    }
+}
+class Cell
+{
+    int x;
+    int y;
+    int cost=-1;
+
+    Cell (int x,int y)
+    {
+        this.x=x;
+        this.y=y;
     }
 }
