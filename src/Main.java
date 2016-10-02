@@ -6,7 +6,7 @@ import java.awt.*;
  */
 public class Main implements Runnable{
 
-
+    static Chosen chosen = new Chosen();
     static boolean OffsetOut(int xSize, int ySize, int i, int j)
     {
         return ((xSize - i) / 2) <= j && j <= (ySize-1 + (xSize - i) / 2);
@@ -46,7 +46,10 @@ public class Main implements Runnable{
             {
                 if(OffsetOut(xSize, ySize,i,j))
                 {
+                    CellAction action=new CellAction();
                     JButton cell =new JButton(i+":"+j);
+                    cell.addActionListener(action);
+                    cell.setActionCommand(i+":"+j);
                     p.add(cell);
                     switch (field.map[i][j]) {
                         case 0:{cell.setBackground(Color.GREEN);break;}
@@ -71,6 +74,17 @@ public class Main implements Runnable{
         p.add(text);
         text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize /2,150);
         text.setEditable(false);
-        text.append("\nДистанция="+Finder.Distance(3,5));
+        text.append("\nДистанция смещения (3,5)="+Finder.Distance(3,5));
+    }
+}
+class Chosen
+{
+    boolean empty=true;
+    int x;
+    int y;
+
+    Chosen()
+    {
+        super();
     }
 }
