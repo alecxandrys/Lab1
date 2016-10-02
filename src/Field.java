@@ -34,7 +34,7 @@ class Field {
         {
             for (int j=0;j<(ySize+xSize/2);j++)
             {
-                if(Main.offsetOut(xSize,ySize,i,j))
+                if(Main.OffsetOut(xSize,ySize,i,j))
                 {
                     map[i][j]=(byte)Math.round(Math.random()*3);
                 }

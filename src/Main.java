@@ -7,7 +7,7 @@ import java.awt.*;
 public class Main implements Runnable{
 
 
-    static boolean offsetOut(int xSize, int ySize, int i, int j)
+    static boolean OffsetOut(int xSize, int ySize, int i, int j)
     {
         return ((xSize - i) / 2) <= j && j <= (ySize-1 + (xSize - i) / 2);
     }
@@ -44,9 +44,9 @@ public class Main implements Runnable{
         {
             for (int j = 0; j<(ySize + xSize /2); j++)
             {
-                if(offsetOut(xSize, ySize,i,j))
+                if(OffsetOut(xSize, ySize,i,j))
                 {
-                    JButton cell =new JButton(i+":"+(j-(xSize -i)/2));
+                    JButton cell =new JButton(i+":"+j);
                     p.add(cell);
                     switch (field.map[i][j]) {
                         case 0:{cell.setBackground(Color.GREEN);break;}
@@ -71,5 +71,6 @@ public class Main implements Runnable{
         p.add(text);
         text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize /2,150);
         text.setEditable(false);
+        text.append("\nДистанция="+Finder.Distance(3,5));
     }
 }
