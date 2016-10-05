@@ -21,11 +21,10 @@ public class Main implements Runnable{
 
     @Override
     public void run() {
-
         int xSize = 7;
         int ySize = 7;
         Field field=new Field(xSize, ySize);
-        pathFinder=new PathFinder(field.map);
+
 
         JFrame jf = new JFrame("Lab1");
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -58,8 +57,8 @@ public class Main implements Runnable{
                         case 0:{cell.setBackground(Color.GREEN);break;}
                         case 1:{cell.setBackground(Color.YELLOW);break;}
                         case 2:{cell.setBackground(Color.RED);break;}
-                        case 4:{cell.setBackground(Color.BLACK);break;}
                         case 3:{cell.setBackground(Color.GRAY);break;}
+                        case 4:{cell.setBackground(Color.BLACK);break;}
                         default:{cell.setBackground(Color.PINK);break;}
                     }
                     if (i%2==0)
@@ -79,6 +78,9 @@ public class Main implements Runnable{
         text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize /2,150);
         text.setEditable(false);
         text.append("\nДистанция смещения (3,5)="+ LOSChecker.Distance(3,5));
+
+        pathFinder=new PathFinder(field.map,text);
+
     }
 
 }
