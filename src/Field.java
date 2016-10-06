@@ -64,4 +64,9 @@ class Cell
         this.y=y;
         this.ground=ground;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getName()+" x="+this.x+" y="+this.y;
+    }
 }

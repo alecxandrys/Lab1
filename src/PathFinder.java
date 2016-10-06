@@ -35,7 +35,7 @@ class PathFinder {
                     neighbors.add(map[x + 1][y]);
                 }
                 //offset from right is zero
-                else if (y == (map[0].length)) {
+                else if (y == (map[0].length-1)) {
                     neighbors.add(map[x + 1][y]);
                     neighbors.add(map[x + 1][y - 1]);
                     neighbors.add(map[x][y - 1]);
@@ -49,13 +49,13 @@ class PathFinder {
             //even number of line (last shifted)
             else
             {
-                //left offset is zero
-                if (y == 0) {
+                //left offset is max (xSize/2)
+                if (y == ((map.length) / 2)) {
                     neighbors.add(map[x][y+1]);
                     neighbors.add(map[x+1][y-1]);
                 }
-                //right offset is max (xSize/2)
-                else if (y == (map[0].length - map.length / 2)) {
+                //right offset is zero
+                else if (y == (map[0].length-1)) {
                     neighbors.add(map[x][y-1]);
                     neighbors.add(map[x+1][y-2]);
                     neighbors.add(map[x+1][y-1]);
@@ -75,7 +75,8 @@ class PathFinder {
             if ((map.length%2)==1)
             {
                 //left offset is zero
-                if (y == 0) {
+                if (y == 0)
+                {
                     neighbors.add(map[x - 1][y + 1]);
                     neighbors.add(map[x][y + 1]);
                 }
@@ -95,13 +96,15 @@ class PathFinder {
             else
             {
                 //left offset is zero
-                if (y == 0) {
+                if (y == 0)
+                {
                     neighbors.add(map[x - 1][y + 1]);
                     neighbors.add(map[x-1][y + 2]);
                     neighbors.add(map[x][y + 1]);
                 }
                 //right offset is max (xSize/2)
-                else if (y == (map[x].length - map.length / 2)) {
+                else if (y == (map[x].length - map.length / 2))
+                {
                     neighbors.add(map[x][y - 1]);
                     neighbors.add(map[x - 1][y + 1]);
                 } else {
@@ -260,15 +263,17 @@ class PathFinder {
      * @param x2 x finish
      * @param y2 y finish
      */
-    void FindPath(int x1, int y1, int x2, int y2)
+    ArrayList<Cell> FindPath(int x1, int y1, int x2, int y2)
     {
         if (map[x1][y1].ground==4 || map[x2][y2].ground==-1)
         {
             text.append("\nПервая точка маршрута непроходима или неверна");
+            return null;
         }
         else if (map[x2][y2].ground==4 || map[x1][y1].ground==-1)
         {
             text.append("\nПоследняя точка маршрута непроходима или неверна");
+            return null;
         }
         else {
 
@@ -308,11 +313,9 @@ class PathFinder {
                     break;
                 }
                 ArrayList<Cell> neighbors=Neighbors(current);
-                Iterator<Cell> iter=neighbors.iterator();
 
-                while (true)
+                for(Cell next:neighbors)
                 {
-                    Cell next=iter.next();
                     int newCost=costSoFar.get(current)+Cost(current,next);
 
                     //!ALERT, costSoFar can haven't next
@@ -323,15 +326,27 @@ class PathFinder {
                         frontier.offer(next);
                         cameFrom.put(next,current);
                     }
-
-
-                    if (!iter.hasNext()) break;
                 }
 
             }
 
+            //write a path
+            current=pointB;
+            ArrayList<Cell> path=new ArrayList<>();
+            path.add(current);
+            while (!current.equals(pointA))
+            {
+                current=cameFrom.get(current);
+                path.add(current);
+            }
 
+            for (Cell aPath : path) {
+                text.append("\nStep " + aPath.toString());
+            }
+
+            return path;
         }
+
     }
 
     public void UpdateMap(Cell map[][])
