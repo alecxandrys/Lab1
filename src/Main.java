@@ -9,6 +9,14 @@ public class Main implements Runnable{
     static Chosen chosen=null;
     static PathFinder pathFinder;
 
+    /**
+     *
+     * @param xSize x size of field
+     * @param ySize y size of field
+     * @param i x index
+     * @param j y index
+     * @return boolean out offset or not
+     */
     static boolean OffsetOut(int xSize, int ySize, int i, int j)
     {
         return ((xSize - i) / 2) <= j && j <= (ySize-1 + (xSize - i) / 2);
@@ -19,9 +27,15 @@ public class Main implements Runnable{
         SwingUtilities.invokeLater (new Main());
     }
 
+    /**
+     * even and odd problem
+     * @see PathFinder
+     */
     @Override
     public void run() {
-        int xSize = 7;
+
+        //TODO a lot of magic with index. All refactor only with Field and PathFinder
+        int xSize = 6;
         int ySize = 7;
         Field field=new Field(xSize, ySize);
 
@@ -42,9 +56,9 @@ public class Main implements Runnable{
 
         p.setLayout(null);
 
-        for (int i = 0; i< xSize; i++)
+        for (int i = (xSize-1); i>=0 ; i--)
         {
-            for (int j = 0; j<(ySize + xSize /2); j++)
+            for (int j = ((ySize + xSize /2)-1); j>=0; j--)
             {
                 if(OffsetOut(xSize, ySize,i,j))
                 {
@@ -67,7 +81,7 @@ public class Main implements Runnable{
                     }
                     else
                     {
-                        cell.setBounds(lineSize *(j-(xSize -i)/2)+ lineSize /2, lineSize *i, lineSize, lineSize);
+                        cell.setBounds(lineSize *(j-(xSize -i)/2)+ lineSize/2, lineSize *i, lineSize, lineSize);
                     }
                 }
 

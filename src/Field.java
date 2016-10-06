@@ -31,9 +31,9 @@ class Field {
 
     private void Creation(int xSize,int ySize)
     {
-        for (int i=0;i<xSize;i++)
+        for (int i=(xSize-1);i>=0;i--)
         {
-            for (int j=0;j<(ySize+xSize/2);j++)
+            for (int j=((ySize+xSize/2)-1);j>=0;j--)
             {
                 if(Main.OffsetOut(xSize,ySize,i,j))
                 {
