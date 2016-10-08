@@ -45,7 +45,7 @@ public class Main implements Runnable {
 
 
         int lineSize = 80;
-        jf.setSize(ySize * lineSize + lineSize / 2, xSize * lineSize + 200);
+        jf.setSize(ySize * lineSize + lineSize / 2, xSize * lineSize + 180);
         jf.setVisible(true);
         jf.setResizable(false);
 
@@ -100,10 +100,12 @@ public class Main implements Runnable {
             }
         }
         JTextArea text = new JTextArea("Здесь производится логгирование действии с картой");
-        p.add(text);
-        text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize / 2, 150);
         text.setEditable(false);
 
+        JScrollPane scrollPane = new JScrollPane(text);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        p.add(scrollPane);
+        scrollPane.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize / 2, 150);
 
         pathFinder = new PathFinder(field.map, text);
         losChecker = new LOSChecker(field.map, text);

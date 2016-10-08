@@ -16,6 +16,7 @@ class PathFinder {
      * @return ArrayList of Neighbors
      * @see Main
      * @see Field
+     * @see LOSChecker
      */
     private ArrayList<Cell> Neighbors(Cell current) {
         ArrayList<Cell> neighbors = new ArrayList<>(6);

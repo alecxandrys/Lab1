@@ -11,6 +11,12 @@ class LOSChecker {
     private JTextArea text;
     private Cell map[][];
 
+
+    /**
+     * @see PathFinder
+     * @param current on of the cell on map
+     * @return neighbors of current cell
+     */
     private ArrayList<Cell> Neighbors(Cell current) {
         ArrayList<Cell> neighbors = new ArrayList<>(6);
         int x = current.x;
@@ -133,6 +139,7 @@ class LOSChecker {
                 //not necessary to divine odd and even line (same shift ever)
                 else {
                     neighbors.add(map[x - 1][y]);
+                    //TODO here we have a bug "out of border
                     neighbors.add(map[x - 1][y + 1]);
                     neighbors.add(map[x][y + 1]);
                     neighbors.add(map[x][y - 1]);
@@ -235,15 +242,17 @@ class LOSChecker {
         current = pointB;
         ArrayList<Cell> path = new ArrayList<>();
         path.add(current);
+
         while (!current.equals(pointA)) {
             current = cameFrom.get(current);
             path.add(current);
         }
-        if (path.size() == Distance(pointA.x - pointB.x, pointA.y - pointB.y)) {
-            text.append("Line of View exist");
+
+        if (path.size() - 1 == Distance(pointA.x - pointB.x, pointA.y - pointB.y)) {
+            text.append("\nLine of View exist");
             return path;
         } else {
-            text.append("Line of View don't exist");
+            text.append("\nLine of View don't exist");
             return null;
         }
 
