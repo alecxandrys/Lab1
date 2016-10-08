@@ -4,40 +4,40 @@ import java.awt.*;
 /**
  * Created by Пользователь on 22.09.2016.
  */
-public class Main implements Runnable{
+public class Main implements Runnable {
 
-    static Chosen chosen=null;
+    static Chosen chosen = null;
     static PathFinder pathFinder;
+    static LOSChecker losChecker;
 
     /**
-     *
      * @param xSize x size of field
      * @param ySize y size of field
-     * @param i x index
-     * @param j y index
+     * @param i     x index
+     * @param j     y index
      * @return boolean out offset or not
      */
-    static boolean OffsetOut(int xSize, int ySize, int i, int j)
-    {
-        return ((xSize - i) / 2) <= j && j <= (ySize-1 + (xSize - i) / 2);
+    static boolean OffsetOut(int xSize, int ySize, int i, int j) {
+        return ((xSize - i) / 2) <= j && j <= (ySize - 1 + (xSize - i) / 2);
     }
 
-    public static void main(String args[ ])
-    {
-        SwingUtilities.invokeLater (new Main());
+    public static void main(String args[]) {
+        SwingUtilities.invokeLater(new Main());
     }
 
     /**
      * even and odd problem
+     * even is main problem, for odd count of line work fine
+     *
      * @see PathFinder
      */
     @Override
     public void run() {
 
         //TODO a lot of magic with index. All refactor only with Field and PathFinder
-        int xSize = 6;
+        int xSize = 7;
         int ySize = 7;
-        Field field=new Field(xSize, ySize);
+        Field field = new Field(xSize, ySize);
 
 
         JFrame jf = new JFrame("Lab1");
@@ -45,7 +45,7 @@ public class Main implements Runnable{
 
 
         int lineSize = 80;
-        jf.setSize(ySize * lineSize + lineSize /2, xSize * lineSize +200);
+        jf.setSize(ySize * lineSize + lineSize / 2, xSize * lineSize + 200);
         jf.setVisible(true);
         jf.setResizable(false);
 
@@ -56,55 +56,68 @@ public class Main implements Runnable{
 
         p.setLayout(null);
 
-        for (int i = (xSize-1); i>=0 ; i--)
-        {
-            for (int j = ((ySize + xSize /2)-1); j>=0; j--)
-            {
-                if(OffsetOut(xSize, ySize,i,j))
-                {
-                    CellAction action=new CellAction();
-                    JButton cell =new JButton(i+":"+j);
+        for (int i = (xSize - 1); i >= 0; i--) {
+            for (int j = ((ySize + xSize / 2) - 1); j >= 0; j--) {
+                if (OffsetOut(xSize, ySize, i, j)) {
+                    CellAction action = new CellAction();
+                    JButton cell = new JButton(i + ":" + j);
                     cell.addActionListener(action);
-                    cell.setActionCommand(i+":"+j);
+                    cell.setActionCommand(i + ":" + j);
                     p.add(cell);
                     switch (field.map[i][j].ground) {
-                        case 0:{cell.setBackground(Color.GREEN);break;}
-                        case 1:{cell.setBackground(Color.YELLOW);break;}
-                        case 2:{cell.setBackground(Color.RED);break;}
-                        case 3:{cell.setBackground(Color.GRAY);break;}
-                        case 4:{cell.setBackground(Color.BLACK);break;}
-                        default:{cell.setBackground(Color.PINK);break;}
+                        case 0: {
+                            cell.setBackground(Color.GREEN);
+                            break;
+                        }
+                        case 1: {
+                            cell.setBackground(Color.YELLOW);
+                            break;
+                        }
+                        case 2: {
+                            cell.setBackground(Color.RED);
+                            break;
+                        }
+                        case 3: {
+                            cell.setBackground(Color.GRAY);
+                            break;
+                        }
+                        case 4: {
+                            cell.setBackground(Color.BLACK);
+                            break;
+                        }
+                        default: {
+                            cell.setBackground(Color.PINK);
+                            break;
+                        }
                     }
-                    if (i%2==0)
-                    {
-                        cell.setBounds(lineSize *(j-(xSize -i)/2), lineSize *i, lineSize, lineSize);
-                    }
-                    else
-                    {
-                        cell.setBounds(lineSize *(j-(xSize -i)/2)+ lineSize/2, lineSize *i, lineSize, lineSize);
+                    if (i % 2 == 0) {
+                        cell.setBounds(lineSize * (j - (xSize - i) / 2), lineSize * i, lineSize, lineSize);
+                    } else {
+                        cell.setBounds(lineSize * (j - (xSize - i) / 2) + lineSize / 2, lineSize * i, lineSize, lineSize);
                     }
                 }
 
             }
         }
-        JTextArea text=new JTextArea("Здесь производится логгирование действии с картой");
+        JTextArea text = new JTextArea("Здесь производится логгирование действии с картой");
         p.add(text);
-        text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize /2,150);
+        text.setBounds(0, xSize * lineSize, ySize * lineSize + lineSize / 2, 150);
         text.setEditable(false);
-        text.append("\nДистанция смещения (3,5)="+ LOSChecker.Distance(3,5));
 
-        pathFinder=new PathFinder(field.map,text);
+
+        pathFinder = new PathFinder(field.map, text);
+        losChecker = new LOSChecker(field.map, text);
+
 
     }
 
 }
 
-class Chosen
-{
-    int x,y;
-    Chosen(int x,int y)
-    {
-        this.x=x;
-        this.y=y;
+class Chosen {
+    int x, y;
+
+    Chosen(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
