@@ -6,198 +6,8 @@ import java.util.*;
  */
 class PathFinder {
 
-    private Cell map[][];
+    private Field field;
     private JTextArea text;
-
-    /**
-     * We have a problem with odd and even number fo line/
-     *
-     * @param current around this find neighbors
-     * @return ArrayList of Neighbors
-     * @see Main
-     * @see Field
-     * @see LOSChecker
-     */
-    private ArrayList<Cell> Neighbors(Cell current) {
-        ArrayList<Cell> neighbors = new ArrayList<>(6);
-        int x = current.x;
-        int y = current.y;
-
-        //first line
-        //map.length=xSize
-        if (x == 0) {
-            //odd number of line (last not shifted)
-            if ((map.length % 2) == 1) {
-                //offset from left
-                if (y == ((map.length) / 2)) {
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x + 1][y]);
-                }
-                //offset from right is zero
-                else if (y == (map[0].length - 1)) {
-                    neighbors.add(map[x + 1][y]);
-                    neighbors.add(map[x + 1][y - 1]);
-                    neighbors.add(map[x][y - 1]);
-                } else {
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x + 1][y]);
-                    neighbors.add(map[x + 1][y - 1]);
-                    neighbors.add(map[x][y - 1]);
-                }
-            }
-            //even number of line (last shifted)
-            else {
-                //left offset is max (xSize/2)
-                if (y == ((map.length) / 2)) {
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x + 1][y - 1]);
-                }
-                //right offset is zero
-                else if (y == (map[0].length - 1)) {
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x + 1][y - 2]);
-                    neighbors.add(map[x + 1][y - 1]);
-                } else {
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x + 1][y - 1]);
-                    neighbors.add(map[x + 1][y - 2]);
-                    neighbors.add(map[x][y - 1]);
-                }
-            }
-        }
-        //last line
-        //max index is map.length-1
-        else if (x == (map.length - 1)) {
-            //odd number of line (last not shifted)
-            if ((map.length % 2) == 1) {
-                //left offset is zero
-                if (y == 0) {
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x][y + 1]);
-                }
-                //right offset is max (xSize/2)
-                else if (y == (map[x].length - map.length / 2)) {
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x - 1][y]);
-                } else {
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x - 1][y]);
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x][y + 1]);
-                }
-            }
-            //even number of line (last shifted)
-            else {
-                //left offset is zero
-                if (y == 0) {
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x - 1][y + 2]);
-                    neighbors.add(map[x][y + 1]);
-                }
-                //right offset is max (xSize/2)
-                else if (y == (map[x].length - map.length / 2)) {
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x - 1][y + 1]);
-                } else {
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x - 1][y + 2]);
-                    neighbors.add(map[x][y + 1]);
-                }
-            }
-        }
-        //not last or first line
-        else {
-            //odd number of line (last not shifted)
-            if ((map.length % 2) == 1) {
-                //left edge
-                if (y == (map.length - x) / 2) {
-                    if (x % 2 == 1) {
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x + 1][y]);
-                        neighbors.add(map[x + 1][y - 1]);
-                    } else {
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x + 1][y]);
-                    }
-                } else if (y == (map[x].length - ((map.length - x) / 2))) {
-                    if (x % 2 == 1) {
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x + 1][y - 1]);
-                    } else {
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x + 1][y - 1]);
-                        neighbors.add(map[x + 1][y]);
-                    }
-                }
-                //not necessary to divide odd and even line (same shift ever)
-                else {
-                    neighbors.add(map[x - 1][y]);
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x + 1][y - 1]);
-                    neighbors.add(map[x + 1][y]);
-
-                }
-            }
-            //even number of line (last shifted)
-            else {
-                if (y == (map.length - x) / 2) {
-                    if (x % 2 == 1) {
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x - 1][y + 2]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x + 1][y]);
-                        neighbors.add(map[x + 1][y + 1]);
-                    } else {
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x + 1][y - 1]);
-                    }
-                } else if (y == (map[x].length - ((map.length - x) / 2))) {
-                    if (x % 2 == 1) {
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x + 1][y]);
-                    } else {
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x - 1][y - 1]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x + 1][y - 1]);
-                        neighbors.add(map[x + 1][y - 2]);
-                    }
-                } else {
-                    if (x % 2 == 1) {
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x - 1][y + 2]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x + 1][y]);
-                        neighbors.add(map[x + 1][y + 1]);
-                    } else {
-                        neighbors.add(map[x - 1][y]);
-                        neighbors.add(map[x - 1][y + 1]);
-                        neighbors.add(map[x][y - 1]);
-                        neighbors.add(map[x][y + 1]);
-                        neighbors.add(map[x - 1][y - 1]);
-                        neighbors.add(map[x - 1][y - 2]);
-                    }
-                }
-            }
-
-        }
-
-        neighbors.trimToSize();
-        return neighbors;
-    }
 
     private int Cost(Cell current, Cell next) {
         switch (next.ground) {
@@ -224,9 +34,9 @@ class PathFinder {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    PathFinder(Cell map[][], JTextArea text) {
+    PathFinder(Field field, JTextArea text) {
         this.text = text;
-        this.map = map;
+        this.field = field;
     }
 
     /**
@@ -239,19 +49,19 @@ class PathFinder {
      * @param y2 y finish
      */
     ArrayList<Cell> FindPath(int x1, int y1, int x2, int y2) {
-        if (map[x1][y1].ground == 4 || map[x2][y2].ground == -1) {
+        if (field.map[x1][y1].ground == 4 || field.map[x2][y2].ground == -1) {
             text.append("\nПервая точка маршрута непроходима или неверна");
             return null;
-        } else if (map[x2][y2].ground == 4 || map[x1][y1].ground == -1) {
+        } else if (field.map[x2][y2].ground == 4 || field.map[x1][y1].ground == -1) {
             text.append("\nПоследняя точка маршрута непроходима или неверна");
             return null;
         } else {
 
-            Cell pointA = map[x1][y1];
-            Cell pointB = map[x2][y2];
+            Cell pointA = field.map[x1][y1];
+            Cell pointB = field.map[x2][y2];
 
             //recount the size of queue, don't need offset point
-            PriorityQueue<Cell> frontier = new PriorityQueue<>(map.length * map[0].length, (o1, o2) -> {
+            PriorityQueue<Cell> frontier = new PriorityQueue<>(field.map.length * field.map[0].length, (o1, o2) -> {
                 if (o1.cost < o2.cost) {
                     return -1;
                 } else if (o1.cost > o2.cost) {
@@ -276,7 +86,7 @@ class PathFinder {
                     text.append("\nPath was found success");
                     break;
                 }
-                ArrayList<Cell> neighbors = Neighbors(current);
+                ArrayList<Cell> neighbors = field.Neighbors(current);
 
                 for (Cell next : neighbors) {
                     int newCost = costSoFar.get(current) + Cost(current, next);
@@ -309,9 +119,4 @@ class PathFinder {
         }
 
     }
-
-    public void UpdateMap(Cell map[][]) {
-        this.map = map;
-    }
-
 }
