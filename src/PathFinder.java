@@ -137,7 +137,7 @@ class PathFinder {
                         neighbors.add(map[x + 1][y]);
                     }
                 }
-                //not necessary to divine odd and even line (same shift ever)
+                //not necessary to divide odd and even line (same shift ever)
                 else {
                     neighbors.add(map[x - 1][y]);
                     neighbors.add(map[x - 1][y + 1]);

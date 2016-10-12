@@ -13,9 +13,9 @@ class LOSChecker {
 
 
     /**
-     * @see PathFinder
      * @param current on of the cell on map
      * @return neighbors of current cell
+     * @see PathFinder
      */
     private ArrayList<Cell> Neighbors(Cell current) {
         ArrayList<Cell> neighbors = new ArrayList<>(6);
@@ -136,16 +136,19 @@ class LOSChecker {
                         neighbors.add(map[x + 1][y]);
                     }
                 }
-                //not necessary to divine odd and even line (same shift ever)
+                //not necessary to divide odd and even line (same shift ever)
                 else {
-                    neighbors.add(map[x - 1][y]);
-                    //TODO here we have a bug "out of border
-                    neighbors.add(map[x - 1][y + 1]);
-                    neighbors.add(map[x][y + 1]);
-                    neighbors.add(map[x][y - 1]);
-                    neighbors.add(map[x + 1][y - 1]);
-                    neighbors.add(map[x + 1][y]);
-
+                    try {
+                        neighbors.add(map[x - 1][y]);
+                        //TODO here we have a bug "out of border"
+                        neighbors.add(map[x - 1][y + 1]);
+                        neighbors.add(map[x][y + 1]);
+                        neighbors.add(map[x][y - 1]);
+                        neighbors.add(map[x + 1][y - 1]);
+                        neighbors.add(map[x + 1][y]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        text.append("Catch error "+current.toString());
+                    }
                 }
             }
             //even number of line (last shifted)
@@ -231,7 +234,8 @@ class LOSChecker {
             ArrayList<Cell> neighbors = Neighbors(current);
 
             for (Cell next : neighbors) {
-                if (next.ground == -1 || next.ground == 3 || next.ground == 4) continue;
+                //ignore cover if cell is target
+                if ((next.ground == -1 || next.ground == 3 || next.ground == 4) && !next.equals(pointB)) continue;
                 if (!cameFrom.containsKey(next)) {
                     frontier.offer(next);
                     cameFrom.put(next, current);
@@ -242,6 +246,13 @@ class LOSChecker {
         current = pointB;
         ArrayList<Cell> path = new ArrayList<>();
         path.add(current);
+
+        //check when a or b point rounded by unreached and ruin.
+        if (cameFrom.get(current)==null)
+        {
+            text.append("\nLine of View don't exist");
+            return null;
+        }
 
         while (!current.equals(pointA)) {
             current = cameFrom.get(current);
