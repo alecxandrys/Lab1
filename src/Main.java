@@ -32,7 +32,6 @@ public class Main implements Runnable {
     @Override
     public void run() {
 
-        //TODO a lot of magic with index. All refactor only with Field and PathFinder
         xSize = 6;
         ySize = 7;
         Field field = new Field(xSize, ySize);
