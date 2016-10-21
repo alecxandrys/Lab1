@@ -173,7 +173,14 @@ class Field {
                 //not necessary to divide odd and even line (same shift ever)
                 else {
                     neighbors.add(map[x - 1][y]);
+                    //TODO: OutOfBound
+                    try{
                     neighbors.add(map[x - 1][y + 1]);
+                        }
+                        catch (ArrayIndexOutOfBoundsException e)
+                        {
+                            System.out.println(current.toString());
+                        }
                     neighbors.add(map[x][y + 1]);
                     neighbors.add(map[x][y - 1]);
                     neighbors.add(map[x + 1][y - 1]);

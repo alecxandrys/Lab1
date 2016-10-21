@@ -6,7 +6,7 @@ import java.awt.*;
  */
 public class Main implements Runnable {
 
-    static Chosen chosen = null;
+    static Cell chosen = null;
     static PathFinder pathFinder;
     static LOSChecker losChecker;
 
@@ -110,16 +110,5 @@ public class Main implements Runnable {
         pathFinder = new PathFinder(field, text);
         losChecker = new LOSChecker(field, text);
 
-
-    }
-
-}
-
-class Chosen {
-    int x, y;
-
-    Chosen(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 }

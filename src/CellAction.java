@@ -16,7 +16,7 @@ class CellAction extends AbstractAction {
         int j = Integer.parseInt(index[1]);
 
         if (Main.chosen == null) {
-            Main.chosen = new Chosen(i, j);
+            Main.chosen = new Cell(i, j,-1);
         } else {
             Main.pathFinder.FindPath(Main.chosen.x, Main.chosen.y, i, j);
             Main.losChecker.LOS(Main.chosen.x, Main.chosen.y, i, j);
