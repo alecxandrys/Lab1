@@ -88,10 +88,10 @@ public class Main implements Runnable {
                             break;
                         }
                     }
-                    if (x % 2 == 1) {
-                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2), lineSize * x, lineSize, lineSize);
+                    if (xSize % 2 == 1) {
+                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2) + (lineSize / 2)*(Math.abs(x%2-1)), lineSize * x, lineSize, lineSize);
                     } else {
-                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2) + lineSize / 2, lineSize * x, lineSize, lineSize);
+                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2) + (lineSize / 2)*(x%2), lineSize * x, lineSize, lineSize);
                     }
                 }
 
