@@ -29,12 +29,12 @@ class Field {
     }
 
     private void Creation(int xSize, int ySize) {
-        for (int i = (xSize - 1); i >= 0; i--) {
-            for (int j = ((ySize + xSize / 2) - 1); j >= 0; j--) {
-                if (Main.OffsetOut(xSize, ySize, i, j)) {
-                    map[i][j] = new Cell(i, j, (byte) Math.round(Math.random() * 4));
+        for (int x = (xSize - 1); x >= 0; x--) {
+            for (int y = ((ySize + xSize / 2) - 1); y >= 0; y--) {
+                if (Main.OffsetOut(x, y)) {
+                    map[x][y] = new Cell(x, y, (byte) Math.round(Math.random() * 4));
                 } else {
-                    map[i][j] = new Cell(i, j, -1);
+                    map[x][y] = new Cell(x, y, -1);
                 }
 
             }

@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
  * Created by Пользователь on 02.10.2016.
  */
 class CellAction extends AbstractAction {
+
+    private static Cell chosen;
+
     CellAction() {
         super();
     }
@@ -15,12 +18,12 @@ class CellAction extends AbstractAction {
         int i = Integer.parseInt(index[0]);
         int j = Integer.parseInt(index[1]);
 
-        if (Main.chosen == null) {
-            Main.chosen = new Cell(i, j,-1);
+        if (chosen == null) {
+            chosen = new Cell(i, j,-1);
         } else {
-            Main.pathFinder.FindPath(Main.chosen.x, Main.chosen.y, i, j);
-            Main.losChecker.LOS(Main.chosen.x, Main.chosen.y, i, j);
-            Main.chosen = null;
+            Main.pathFinder.FindPath(chosen.x,chosen.y, i, j);
+            Main.losChecker.LOS(chosen.x,chosen.y, i, j);
+            chosen = null;
         }
     }
 }

@@ -24,7 +24,6 @@ class PathFinder {
                 return 4;
             }//ruin
             default: {
-                //text.append("\nUnreached point " + next.toString());
                 return 1000;
             }
         }

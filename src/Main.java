@@ -6,19 +6,17 @@ import java.awt.*;
  */
 public class Main implements Runnable {
 
-    static Cell chosen = null;
     static PathFinder pathFinder;
     static LOSChecker losChecker;
+    private static int xSize,ySize;
 
     /**
-     * @param xSize x size of field
-     * @param ySize y size of field
-     * @param i     x index
-     * @param j     y index
+     * @param x     x index
+     * @param y     y index
      * @return boolean out offset or not
      */
-    static boolean OffsetOut(int xSize, int ySize, int i, int j) {
-        return ((xSize - i) / 2) <= j && j <= (ySize - 1 + (xSize - i) / 2);
+    static boolean OffsetOut(int x, int y) {
+        return ((xSize - x-1) / 2) <= y && y <= (ySize - 1 + (xSize - x-1) / 2);
     }
 
     public static void main(String args[]) {
@@ -35,8 +33,8 @@ public class Main implements Runnable {
     public void run() {
 
         //TODO a lot of magic with index. All refactor only with Field and PathFinder
-        int xSize = 7;
-        int ySize = 7;
+        xSize = 6;
+        ySize = 7;
         Field field = new Field(xSize, ySize);
 
 
@@ -56,15 +54,15 @@ public class Main implements Runnable {
 
         p.setLayout(null);
 
-        for (int i = (xSize - 1); i >= 0; i--) {
-            for (int j = ((ySize + xSize / 2) - 1); j >= 0; j--) {
-                if (OffsetOut(xSize, ySize, i, j)) {
+        for (int x = (xSize - 1); x >= 0; x--) {
+            for (int y = ((ySize + xSize / 2) - 1); y >= 0; y--) {
+                if (OffsetOut(x, y)) {
                     CellAction action = new CellAction();
-                    JButton cell = new JButton(i + ":" + j);
+                    JButton cell = new JButton(x + ":" + y);
                     cell.addActionListener(action);
-                    cell.setActionCommand(i + ":" + j);
+                    cell.setActionCommand(x + ":" + y);
                     p.add(cell);
-                    switch (field.map[i][j].ground) {
+                    switch (field.map[x][y].ground) {
                         case 0: {
                             cell.setBackground(Color.GREEN);
                             break;
@@ -90,10 +88,10 @@ public class Main implements Runnable {
                             break;
                         }
                     }
-                    if (i % 2 == 0) {
-                        cell.setBounds(lineSize * (j - (xSize - i) / 2), lineSize * i, lineSize, lineSize);
+                    if (x % 2 == 1) {
+                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2), lineSize * x, lineSize, lineSize);
                     } else {
-                        cell.setBounds(lineSize * (j - (xSize - i) / 2) + lineSize / 2, lineSize * i, lineSize, lineSize);
+                        cell.setBounds(lineSize * (y - (xSize -1- x) / 2) + lineSize / 2, lineSize * x, lineSize, lineSize);
                     }
                 }
 
