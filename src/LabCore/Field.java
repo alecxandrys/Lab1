@@ -1,4 +1,4 @@
-/**
+package LabCore; /**
  * Created by Пользователь on 22.09.2016.
  */
 
