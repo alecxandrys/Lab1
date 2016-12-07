@@ -1,4 +1,4 @@
-package main.java.LabCore;
+package LabCore;
 /**
  * Created by alecxanrys
  */

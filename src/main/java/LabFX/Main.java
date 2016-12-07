@@ -1,7 +1,8 @@
-package main.java.LabFX;
+package LabFX;
 
-
-import main.java.LabCore.*;
+import LabCore.Field;
+import LabCore.LOSChecker;
+import LabCore.PathFinder;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import javax.swing.*;
 
 /**
