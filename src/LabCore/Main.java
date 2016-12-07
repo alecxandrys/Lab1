@@ -17,7 +17,7 @@ public class Main implements Runnable {
      * @param y     y index
      * @return boolean out offset or not
      */
-    static boolean OffsetOut(int x, int y) {
+    private boolean OffsetOut(int x, int y) {
         return ((xSize - x-1) / 2) <= y && y <= (ySize - 1 + (xSize - x-1) / 2);
     }
 

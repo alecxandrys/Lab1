@@ -12,9 +12,11 @@ import java.util.ArrayList;
  * 3:ruin
  * 4:unreached
  */
-class Field {
-    Cell map[][];
+public class Field {
+    public Cell map[][];
     private ArrayList<Shift> shifts;
+
+    private int xSize,ySize;
 
     /**
      * @param xSize map's height-VERTICAL
@@ -23,10 +25,12 @@ class Field {
      *              Math for offset (((xSize-i)/2)<=j && j<=(ySize - 1 + (xSize-i)/2))
      *              -1 is some magic
      */
-    Field(int xSize, int ySize) {
+    public Field(int xSize, int ySize) {
         //set offset for HORIZONTAL line
+        this.xSize=xSize;
+        this.ySize=ySize;
         map = new Cell[xSize][ySize + xSize / 2];
-        Creation(xSize, ySize);
+        Creation();
         shifts = new ArrayList<>(6);
         shifts.add(new Shift(-1, 0));
         shifts.add(new Shift(-1, +1));
@@ -37,10 +41,10 @@ class Field {
         shifts.trimToSize();
     }
 
-    private void Creation(int xSize, int ySize) {
+    private void Creation() {
         for (int x = (xSize - 1); x >= 0; x--) {
             for (int y = ((ySize + xSize / 2) - 1); y >= 0; y--) {
-                if (Main.OffsetOut(x, y)) {
+                if (OffsetOut(x, y)) {
                     map[x][y] = new Cell(x, y, (byte) Math.round(Math.random() * 4));
                 } else {
                     map[x][y] = new Cell(x, y, -1);
@@ -89,23 +93,8 @@ class Field {
             this.y = y;
         }
     }
-}
-
-class Cell {
-    final int x;
-    final int y;
-    final int ground;
-    int cost = -1;
-
-
-    Cell(int x, int y, int ground) {
-        this.x = x;
-        this.y = y;
-        this.ground = ground;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getName() + " x=" + this.x + " y=" + this.y;
+    private boolean OffsetOut(int x, int y) {
+        return ((xSize - x-1) / 2) <= y && y <= (ySize - 1 + (xSize - x-1) / 2);
     }
 }
+

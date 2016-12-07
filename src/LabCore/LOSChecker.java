@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * Created by Пользователь on 22.09.2016.
  */
-class LOSChecker {
+public class LOSChecker {
     private JTextArea text;
     private Field field;
 
@@ -20,12 +20,12 @@ class LOSChecker {
     }
 
 
-    LOSChecker(Field field, JTextArea text) {
+    public LOSChecker(Field field, JTextArea text) {
         this.field = field;
         this.text = text;
     }
 
-    ArrayList<Cell> LOS(int x1, int y1, int x2, int y2) {
+    public ArrayList<Cell> LOS(int x1, int y1, int x2, int y2) {
         Cell pointA = field.map[x1][y1];
         Cell pointB = field.map[x2][y2];
 

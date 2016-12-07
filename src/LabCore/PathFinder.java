@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Пользователь on 22.09.2016.
  */
-class PathFinder {
+public class PathFinder {
 
     private Field field;
     private JTextArea text;
@@ -35,7 +35,7 @@ class PathFinder {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    PathFinder(Field field, JTextArea text) {
+    public PathFinder(Field field, JTextArea text) {
         this.text = text;
         this.field = field;
     }
@@ -49,7 +49,7 @@ class PathFinder {
      * @param x2 x finish
      * @param y2 y finish
      */
-    ArrayList<Cell> FindPath(int x1, int y1, int x2, int y2) {
+    public ArrayList<Cell> FindPath(int x1, int y1, int x2, int y2) {
         if (field.map[x1][y1].ground == 4 || field.map[x2][y2].ground == -1) {
             text.append("\nПервая точка маршрута непроходима или неверна");
             return null;
