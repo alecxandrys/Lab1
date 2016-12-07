@@ -1,10 +1,10 @@
-package LabCore;
+package main.java.LabCore;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Пользователь on 22.09.2016.
+ * Created by alecxanrys
  */
 public class Main implements Runnable {
 

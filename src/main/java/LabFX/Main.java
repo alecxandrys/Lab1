@@ -1,6 +1,7 @@
-package LabFX;
+package main.java.LabFX;
 
-import LabCore.*;
+
+import main.java.LabCore.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,8 +10,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import javax.swing.*;
+
+/**
+ * Created by alecxanrys
+ */
 
 public class Main extends Application {
 
@@ -28,7 +32,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Lab #5-JavaFX. Main scene");
+        primaryStage.setTitle("Lab #5-JavaFX. main scene");
 
         xSize = 6;
         ySize = 7;

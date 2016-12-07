@@ -1,4 +1,7 @@
-package LabCore;
+package main.java.LabCore;
+/**
+ * Created by alecxanrys
+ */
 
 public class Cell {
     final int x;

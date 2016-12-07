@@ -1,10 +1,10 @@
-package LabCore;
+package main.java.LabCore;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Created by Пользователь on 02.10.2016.
+ * Created by alecxanrys
  */
 class CellAction extends AbstractAction {
 

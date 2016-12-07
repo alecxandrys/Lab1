@@ -1,10 +1,8 @@
-package LabCore; /**
- * Created by Пользователь on 22.09.2016.
- */
+package main.java.LabCore;
 
 import java.util.ArrayList;
-
 /**
+ * Created by alecxanrys
  * -1:offset
  * 0:standard
  * 1:difficult
