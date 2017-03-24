@@ -1,5 +1,7 @@
 package LabCore;
 
+import LabFX.Checker;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -8,7 +10,7 @@ import java.util.LinkedList;
 /**
  * Created by alecxanrys
  */
-public class LOSChecker{
+public class LOSChecker extends Checker{
     private JTextArea text;
     private Field field;
 
@@ -33,7 +35,7 @@ public class LOSChecker{
         return single;
     }
 
-    public void LOS(int x1,int y1,int x2,int y2){
+    public void Check(int x1,int y1,int x2,int y2){
         Cell pointA=field.map[x1][y1];
         Cell pointB=field.map[x2][y2];
 

@@ -64,8 +64,10 @@ public class Main extends Application{
                             chosenY=j;
                         }
                         else {
-                            PathFinder.getSingle(field,text).FindPath(chosenX,chosenY,i,j);
-                            LOSChecker.getSingle(field,text).LOS(chosenX,chosenY,i,j);
+                            Creator[] creators={new PFCreator(),new LOSCreator()};
+                            for (Creator creator: creators) {
+                                creator.Get(field,text).Check(chosenX,chosenY,i,j);
+                            }
                             chosenX=-1;
                             chosenY=-1;
                         }

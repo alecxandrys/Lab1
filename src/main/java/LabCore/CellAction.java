@@ -24,8 +24,8 @@ class CellAction extends AbstractAction{
             chosen=new Cell(i,j,-1);
         }
         else {
-            Main.pathFinder.FindPath(chosen.x,chosen.y,i,j);
-            Main.losChecker.LOS(chosen.x,chosen.y,i,j);
+            Main.pathFinder.Check(chosen.x,chosen.y,i,j);
+            Main.losChecker.Check(chosen.x,chosen.y,i,j);
             chosen=null;
         }
     }

@@ -1,12 +1,14 @@
 package LabCore;
 
+import LabFX.Checker;
+
 import javax.swing.*;
 import java.util.*;
 
 /**
  * Created by alecxanrys
  */
-public class PathFinder{
+public class PathFinder extends Checker{
 
     private Field field;
     private JTextArea text;
@@ -61,7 +63,7 @@ public class PathFinder{
  *         x finish
      * @param y2
      */
-    public void FindPath(int x1,int y1,int x2,int y2){
+    public void Check(int x1,int y1,int x2,int y2){
         if (field.map[x1][y1].ground==4 || field.map[x2][y2].ground==-1) {
             text.append("\nПервая точка маршрута непроходима или неверна");
         }
