@@ -111,8 +111,8 @@ public class Main implements Runnable{
         p.add(scrollPane);
         scrollPane.setBounds(0,xSize*lineSize,ySize*lineSize+lineSize/2,150);
 
-        pathFinder=new PathFinder(field,text);
-        losChecker=new LOSChecker(field,text);
+        pathFinder=PathFinder.getSingle(field,text);
+        losChecker=LOSChecker.getSingle(field,text);
 
     }
 }

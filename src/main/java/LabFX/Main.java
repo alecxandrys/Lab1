@@ -26,10 +26,6 @@ public class Main extends Application{
 
     private TextArea log;
     private int chosenX=-1, chosenY=-1;
-
-    private PathFinder pathFinder;
-    private LOSChecker losChecker;
-
     private int xSize, ySize;
 
     @Override
@@ -46,6 +42,7 @@ public class Main extends Application{
         Field field=new Field.Builder(xSize,ySize).Map(4).Shifts(a).build();
 
         Pane pane=new Pane();
+        MyTextArea text=new MyTextArea();
 
         for (int x=(xSize-1); x>=0; x--) {
             for (int y=((ySize+xSize/2)-1); y>=0; y--) {
@@ -67,8 +64,8 @@ public class Main extends Application{
                             chosenY=j;
                         }
                         else {
-                            pathFinder.FindPath(chosenX,chosenY,i,j);
-                            losChecker.LOS(chosenX,chosenY,i,j);
+                            PathFinder.getSingle(field,text).FindPath(chosenX,chosenY,i,j);
+                            LOSChecker.getSingle(field,text).LOS(chosenX,chosenY,i,j);
                             chosenX=-1;
                             chosenY=-1;
                         }
@@ -124,11 +121,6 @@ public class Main extends Application{
         root.setTop(pane);
 
         Scene fieldScene=new Scene(root,ySize*lineSize+lineSize/2,xSize*lineSize+180);
-
-        MyTextArea text=new MyTextArea();
-        pathFinder=new PathFinder(field,text);
-        losChecker=new LOSChecker(field,text);
-
         primaryStage.setScene(fieldScene);
         primaryStage.show();
     }

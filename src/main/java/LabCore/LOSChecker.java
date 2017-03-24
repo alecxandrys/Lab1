@@ -12,6 +12,7 @@ public class LOSChecker{
     private JTextArea text;
     private Field field;
 
+    private static LOSChecker single=null;
     private int Distance(int deltaX,int deltaY){
         int d=(Math.abs(deltaX)+Math.abs(deltaY)+Math.abs(deltaX+deltaY))/2;
         text.append("\nДистанция смещения "+deltaX+":"+deltaY+"="+d);
@@ -19,9 +20,17 @@ public class LOSChecker{
     }
 
 
-    public LOSChecker(Field field,JTextArea text){
+    private LOSChecker(Field field,JTextArea text){
         this.field=field;
         this.text=text;
+    }
+    public static LOSChecker getSingle(Field field,JTextArea text)
+    {
+        if (single==null)
+        {
+            single=new LOSChecker(field,text);
+        }
+        return single;
     }
 
     public void LOS(int x1,int y1,int x2,int y2){

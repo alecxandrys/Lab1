@@ -11,6 +11,8 @@ public class PathFinder{
     private Field field;
     private JTextArea text;
 
+    private static PathFinder single=null;
+
     private int Cost(Cell current,Cell next){
         switch (next.ground) {
             case 0: {
@@ -35,9 +37,17 @@ public class PathFinder{
         return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
     }
 
-    public PathFinder(Field field,JTextArea text){
+    private PathFinder(Field field,JTextArea text){
         this.text=text;
         this.field=field;
+    }
+    public static PathFinder getSingle(Field field,JTextArea text)
+    {
+        if (single==null)
+        {
+            single=new PathFinder(field,text);
+        }
+        return single;
     }
 
     /**
