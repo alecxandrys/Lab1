@@ -1,6 +1,7 @@
 package LabFX;
 
 import LabCore.Field;
+import com.mysql.jdbc.Connection;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -123,6 +124,15 @@ public class Main extends Application{
         Scene fieldScene=new Scene(root,ySize*lineSize+lineSize/2,xSize*lineSize+180);
         primaryStage.setScene(fieldScene);
         primaryStage.show();
+
+        Connection connection = null;
+        //URL к базе состоит из протокола:подпротокола://[хоста]:[порта_СУБД]/[БД] и других_сведений
+        String url = "jdbc:mysql://127.0.0.1:5432/MySQLTestBase";
+        //Имя пользователя БД
+        String name = "root";
+        //Пароль
+        String password = "MySQL";
+
     }
 
     private boolean OffsetOut(int x,int y){
