@@ -1,8 +1,6 @@
 package LabFX;
 
 import LabCore.Field;
-import LabCore.LOSChecker;
-import LabCore.PathFinder;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,8 +9,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import javax.swing.*;
+import com.mysql.jdbc.Driver;
 
 /**
  * Created by alecxanrys
