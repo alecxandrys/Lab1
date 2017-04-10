@@ -47,7 +47,7 @@ public class Field{
             this.xSize=xSize;
             this.ySize=ySize;
         }
-        public Builder Map(int type){//4 by default
+        public Builder GeneratedMap(int type){//4 by default
             map = new Cell[xSize][ySize + xSize / 2];
             for (int x=(xSize-1); x>=0; x--) {
                 for (int y=((ySize+xSize/2)-1); y>=0; y--) {
@@ -60,6 +60,10 @@ public class Field{
 
                 }
             }
+            return this;
+        }
+        public Builder PreGenerated(String rawData)
+        {
             return this;
         }
         public Builder Shifts(int[][] shift)

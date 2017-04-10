@@ -40,7 +40,7 @@ public class Main implements Runnable{
         ySize=7;
         int[][] a={{-1,0},{-1,1},{0,-1},{0,1},{1,0},{1,1}};
 
-        Field field=new Field.Builder(xSize,ySize).Map(4).Shifts(a).build();
+        Field field=new Field.Builder(xSize,ySize).GeneratedMap(4).Shifts(a).build();
 
 
         JFrame jf=new JFrame("Lab1");

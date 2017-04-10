@@ -10,7 +10,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.swing.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by alecxanrys
@@ -25,20 +27,41 @@ public class Main extends Application{
     private TextArea log;
     private int chosenX=-1, chosenY=-1;
     private int xSize, ySize;
+    private Statement statement;
+    private ResultSet chosenMap;
+    private Field field=null;
+    private int sessionID;
+
+    void setCondition(Statement statement,ResultSet chosen,int sessionID)
+    {
+        this.statement=statement;
+        this.chosenMap=chosen;
+        this.sessionID=sessionID;
+    }
 
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("Lab #5-JavaFX. main scene");
 
-        xSize=6;
-        ySize=7;
+        primaryStage.setTitle("Lab #5-JavaFX. Main scene");
+        int[][] a={{-1,0},{-1,1},{0,-1},{0,1},{1,0},{1,1}};
+        if (chosenMap!=null) {
+            try {
+                xSize=chosenMap.getInt("xSize");
+                ySize=chosenMap.getInt("ySize");
+                field=new Field.Builder(xSize,ySize).PreGenerated(chosenMap.getString("Field")).Shifts(a).build();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else
+        {
+            xSize=6;
+            ySize=7;
+            field=new Field.Builder(xSize,ySize).GeneratedMap(4).Shifts(a).build();
+        }
 
         int lineSize=80;
-
-        int[][] a={{-1,0},{-1,1},{0,-1},{0,1},{1,0},{1,1}};
-
-        Field field=new Field.Builder(xSize,ySize).Map(4).Shifts(a).build();
-
         Pane pane=new Pane();
         MyTextArea text=new MyTextArea();
 
@@ -124,23 +147,6 @@ public class Main extends Application{
         primaryStage.setScene(fieldScene);
         primaryStage.show();
 
-        Connection connection = null;
-        //URL к базе состоит из протокола:подпротокола://[хоста]:[порта_СУБД]/[БД] и других_сведений
-        String url = "jdbc:mysql://localhost:3306/MySQL";
-        //Имя пользователя БД
-        String name = "root";
-        //Пароль
-        String password = "MySQL";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, name, password);
-            Statement  statement=connection.createStatement();
-            statement.executeUpdate("CREATE TABLE sys.test (t integer, c char (30));");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private boolean OffsetOut(int x,int y){
@@ -151,6 +157,14 @@ public class Main extends Application{
         @Override
         public void append(String str){
             log.appendText(str);
+            str=str.substring(1,str.length());
+            int ID=(int) Math.floor(Math.random()*1000);
+            String sql="INSERT INTO sys.request_log (ID,TEXT,SESSION_ID) VALUES ("+ID+",\""+str+"\", (SELECT ID FROM sys.sessia WHERE ID="+sessionID+"));";
+            try {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
