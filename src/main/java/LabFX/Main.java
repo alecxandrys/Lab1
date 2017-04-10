@@ -1,7 +1,6 @@
 package LabFX;
 
 import LabCore.Field;
-import com.mysql.jdbc.Connection;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,7 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.swing.*;
-import com.mysql.jdbc.Driver;
+import java.sql.*;
 
 /**
  * Created by alecxanrys
@@ -127,11 +126,20 @@ public class Main extends Application{
 
         Connection connection = null;
         //URL к базе состоит из протокола:подпротокола://[хоста]:[порта_СУБД]/[БД] и других_сведений
-        String url = "jdbc:mysql://127.0.0.1:5432/MySQLTestBase";
+        String url = "jdbc:mysql://localhost:3306/MySQL";
         //Имя пользователя БД
         String name = "root";
         //Пароль
         String password = "MySQL";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(url, name, password);
+            Statement  statement=connection.createStatement();
+            statement.executeUpdate("CREATE TABLE sys.test (t integer, c char (30));");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
